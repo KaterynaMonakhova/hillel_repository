@@ -7,13 +7,16 @@ data = [
     {'name': 'Andrey', 'city': 'Kiev', 'age': 34},
     {'name': 'Artem', 'city': 'Dnepr', 'age': 50},
     {'name': 'Dmitriy', 'city': 'Lviv', 'age': 21}]
-data_sorted = sorted(data, key=itemgetter('age'))
-new_dict = {}
-for i in data_sorted:
-    for key, value in i.items():
-        if 'city' in key:
-            new_dict[value] = []
-for elem in data_sorted:
-    if elem['city'] in new_dict:
-        new_dict[elem.pop('city')].insert(-1, elem)
-print(new_dict)
+def sort_dict (data):
+    data_sorted = sorted(data, key=itemgetter('age'))
+    new_dict = {}
+    for i in data_sorted:
+        for key, value in i.items():
+            if 'city' in key:
+                new_dict[value] = []
+    for elem in data_sorted:
+        if elem['city'] in new_dict:
+            new_dict[elem.pop('city')].insert(-1, elem)
+    print(new_dict)
+    return new_dict
+sort_dict(data)
