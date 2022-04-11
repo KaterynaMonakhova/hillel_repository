@@ -1,17 +1,19 @@
-def arg_decorator(get_argument):
-    def check_type(arg):
-        print(f"Run function: {get_argument.__name__}, with param: {arg}:")
+def arg_decorator(func):
+    def check_arg(*arg):
+        print("Enter the one integer: ")
         try:
-            get_argument(arg)
-        except TypeError:
-            print("String type is not supported")
-    return check_type
+            print(f"x = {func(*arg)}")
+        except ValueError:
+            print("string type is not supported")
+
+    return (check_arg)
+
 
 @arg_decorator
-def get_argument(num):
-    res = num//2
-    print(res)
-    return (res)
+def get_argument():
+    x = int(input())
+
+    return x
 
 
-get_argument(75)
+get_argument()

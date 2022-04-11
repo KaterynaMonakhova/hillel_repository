@@ -1,19 +1,15 @@
+from random import randint
 def division_decorator(func):
-    def check_division():
-        print("Enter the one integer: ")
-        try:
-            func()
-        except ValueError:
-            raise ValueError("string type is not supported")
-
-        return (check_division)
-
+    def check_division(arg):
+        result = 100 % (func(arg))
+        print(f"Run function: {func.__name__}, with param: {arg}:")
+        print("We are OK!") if result == 0 else print(f"Bad news guys, we got {result}")
+    return (check_division)
 
 @division_decorator
-def get_argument(x):
-    x = input()
-
-    return (int(input()))
+def get_division(num):
+    return num
 
 
-get_argument()
+get_division(randint(1, 11))
+
