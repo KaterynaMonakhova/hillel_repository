@@ -1,33 +1,27 @@
-import os
-class FILE_PROC:
-    def __init__(self, file_proc, mode):
-        self.file_proc = file_proc
+class FileMode:
+    def __init__(self, path, mode):
+        self.path = path
         self.mode = mode
-        if mode == 'c':
-            self.mode = 'w'
 
+    def __enter__(self):
+        self.fmode = open(self.path, self.mode)
+        return self.fmode
 
-    def write(self):
-        if os.path.exists(file_proc):
+    def __exit__(self, *ext_info):
+        self.fmode.close()
+        del self.fmode
 
-        with open(self.file_proc) as f:
-            f.write(self.line + '\n')
-            for elem in f:
+def file_mode (path, mode):
+    with FileMode(path, mode) as fmode:
+        if fmode.mode == 'a':
+            fmode.write('test\n')
+        elif fmode.mode == 'r':
+            for elem in fmode:
                 print(elem)
-            f.close()
+        elif fmode.mode == 'w':
+            fmode.write('')
 
-
-    def read(self):
-        with open(self.file_proc) as f:
-            f = open('r')
-            f.readlines()
-            f.close()
-
-    # def remove(self):
-    #     with open(self.file_proc) as f:
-    #         f.replace(self.line, '')
-    #         f.close()
-
-file_proc = open('test.txt', 'w')
-line = 'hello'
-files_processing = FILE_PROC(file_proc, line)
+file_mode('out.txt', 'w')
+file_mode('out.txt', 'a')
+file_mode('out.txt', 'a')
+file_mode('out.txt', 'r')
